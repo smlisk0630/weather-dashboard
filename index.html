@@ -22,37 +22,41 @@
         <section class="container">
             <nav class="navbar navbar-dark bg-dark">
                 <section class="container-fluid">
-                  <span class="navbar-brand mb-0 h1">Weather Dashboard</span>
+                  <span class="navbar-brand mb-0 h1" text-center>Weather Dashboard</span>
                 </section>
               </nav>
             <section class="search-container">
-                <section class="col-10">
-                    <section class="row">
+                <section class="row">
+                    <section class="col-5">
                         <span class="search" id="search">Search for a City:</span>
+                        <form class="d-flex">
+                            <input class="form-control me-2" id="search-result" type="search" aria-label="Search">
+                            <button type="button" id="searchBtn" class="btn btn-primary">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                                </svg>
+                                <span class="visually-hidden"></span>
+                            </button>
+                        </form>
                     </section>
-                    <form class="d-flex">
-                        <input class="form-control me-2" id="search-result" type="search" aria-label="Search">
-                        <button type="button" id="searchBtn" class="btn btn-primary">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                            </svg>
-                            <span class="visually-hidden"></span>
-                        </button>
-                    </form>
+                    <section class="col-7">
+                        <section class="card">
+                            <section class="card-body">
+                                <section class="city"></section>
+                                <section class="temperature"></section>
+                                <section class="humidity"></section>
+                                <section class="wind"></section>
+                                <section class="uv-index"></section>
+                            </section>
+                        </section>
+                    </section> 
                 </section>
             </section>
             <section class="city-container">
-                <section class="card" style="width: 25rem;">
-                    <ul class="list-group list-group-flush" id="search-history"></ul>
-                </section>
-            </section>  
-            <section class="card">
-                <section class="card-body">
-                    <section class="city"></section>
-                    <section class="temperature"></section>
-                    <section class="humidity"></section>
-                    <section class="wind"></section>
-                    <section class="uv-index"></section>
+                <section class="row">                  
+                    <section class="card" style="width: 25rem;">
+                        <ul class="list-group list-group-flush" id="search-history"></ul>
+                    </section>
                 </section>
             </section>
         </section>
