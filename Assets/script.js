@@ -7,7 +7,7 @@ var searchButton = document.getElementById("#searchBtn");
 // Get city saved in local storage
 $(document).ready(function () {
     // City being searched
-    
+
 
     // if (localStorage.getItem(city) != null) {
     //     cityHolder = localStorage.getItem(city);
@@ -15,8 +15,9 @@ $(document).ready(function () {
     // }
 
     // Take a city and search the Open Weather API for it
-    function searchCity () {
-        var city = "Atlanta"; //document.getElementById("#search-result");
+    function searchCity() {
+        var city = document.getElementById("search-result").value;
+
         // QueryURL
         var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=a388319d9671a29c369dd037334f23bc";
 
@@ -50,17 +51,14 @@ $(document).ready(function () {
 
     // Add event listener to search button, create a list to show search history, and save to local storage
     function saveCity() {
-        $(searchButton).click(function (event) {
-            event.preventDefault();
-            searchCity();
-            // function weather() {
-            // Store city, add bootstrap class to li, and add li to ul
-            localStorage.setItem(city, city.value());
-            $(cityHolder).addClass("list-group-item");
-            $("#search-history").append(cityHolder);
-            console.log(cityHolder);
-            // }
-        })
+        //event.preventDefault();
+        searchCity();
+        // function weather() {
+        // Store city, add bootstrap class to li, and add li to ul
+        localStorage.setItem(city, city.value());
+        $(cityHolder).addClass("list-group-item");
+        $("#search-history").append(cityHolder);
+        console.log(cityHolder);
     }
-    $("#searchBtn").on("click",searchCity());
+    $("#searchBtn").click(searchCity);
 })
