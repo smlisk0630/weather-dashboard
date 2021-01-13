@@ -54,9 +54,12 @@ $(document).ready(function () {
             // Add event listener to search button, create a list to show search history, and save to local storage
             // List element to hold city
             var cityHolder = $("<li>");
+            // Ensures string gets converted back into array
+            var cities = JSON.parse(localStorage.getItem("searchHistory")) || [];
+            cities.push(response.city.name);
 
             // Store city, add bootstrap class to li, and add li to ul
-            localStorage.setItem(response, response.value);
+            localStorage.setItem("searchHistory",JSON.stringify(cities));
             $(cityHolder).addClass("list-group-item");
             $("#search-history").append(cityHolder);
             console.log(cityHolder);
