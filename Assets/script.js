@@ -50,15 +50,15 @@ $(document).ready(function () {
             // List element to hold city
             var cityHolder = $("<li>");
 
-            // If there is no city searched, set to an empty array
+            // If nothing is returned from local storage, the variable type is an array. If it's empty and then you attempt to push an item into it, you will get an error.
             // Also ensures string gets converted back into array
             var cities = JSON.parse(localStorage.getItem("searchHistory")) || [];
             cities.push(response.city.name);
+            $("#search-history").html(" ");
 
             // Add for loop and make each list item an index item
             for (var i = 0; i < cities.length; i++) {
-                //var element = cities[i];
-
+                
                 // Store city, add bootstrap class to li, and add li to ul
                 localStorage.setItem("searchHistory", JSON.stringify(cities));
                 var cityHolder = $("<li>").append(cities[i]);
