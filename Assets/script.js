@@ -60,7 +60,7 @@ $(document).ready(function () {
 
             // Store city, add bootstrap class to li, and add li to ul
             localStorage.setItem("searchHistory",JSON.stringify(cities));
-            var cityHolder = cities;
+            var cityHolder = $("<li>").append(cities);
             $(cityHolder).addClass("list-group-item");
             $("#search-history").append(cityHolder);
             console.log(cityHolder);
