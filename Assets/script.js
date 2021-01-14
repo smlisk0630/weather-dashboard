@@ -9,11 +9,6 @@ $(document).ready(function () {
         // City being searched
         var city = document.getElementById("search-result").value;
 
-        // if (localStorage.getItem(city) != null) {
-        //     cityHolder = localStorage.getItem(city);
-        //     searchCity();
-        // }
-
         // QueryURL
         var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=a388319d9671a29c369dd037334f23bc";
 
@@ -23,7 +18,7 @@ $(document).ready(function () {
         }).then(function (response) {
             console.log(response);
             var tempResults = response.list[0].main.temp;
-            
+
             //calculate the temperature (converted from Kelvin)
             var fTemp = ((tempResults - 273.15) * 1.80 + 32).toFixed(0);
             console.log(fTemp);
@@ -43,7 +38,7 @@ $(document).ready(function () {
             // Get UV index
             $.ajax({
                 url: uvQueryURL,
-                method: "GET"      
+                method: "GET"
             }).then(function (uvResponse) {
                 console.log(uvResponse);
 
@@ -54,16 +49,23 @@ $(document).ready(function () {
             // Add event listener to search button, create a list to show search history, and save to local storage
             // List element to hold city
             var cityHolder = $("<li>");
-            // Ensures string gets converted back into array
+
+            // If there is no city searched, set to an empty array
+            // Also ensures string gets converted back into array
             var cities = JSON.parse(localStorage.getItem("searchHistory")) || [];
             cities.push(response.city.name);
 
-            // Store city, add bootstrap class to li, and add li to ul
-            localStorage.setItem("searchHistory",JSON.stringify(cities));
-            var cityHolder = $("<li>").append(cities);
-            $(cityHolder).addClass("list-group-item");
-            $("#search-history").append(cityHolder);
-            console.log(cityHolder);
+            // Add for loop and make each list item an index item
+            for (var i = 0; i < cities.length; i++) {
+                //var element = cities[i];
+
+                // Store city, add bootstrap class to li, and add li to ul
+                localStorage.setItem("searchHistory", JSON.stringify(cities));
+                var cityHolder = $("<li>").append(cities[i]);
+                $(cityHolder).addClass("list-group-item");
+                $("#search-history").append(cityHolder);
+                console.log(cityHolder);
+            }
         });
     };
     $("#searchBtn").click(searchCity);
