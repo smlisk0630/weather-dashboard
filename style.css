@@ -7,3 +7,8 @@
     /* margin-right: 60%; */
     background-color: #f8f9fa;
 }
+
+.forecast {
+    background-color: blue;
+    color: #f8f9fa;
+}

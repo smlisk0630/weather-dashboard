@@ -35,18 +35,19 @@ $(document).ready(function () {
             $(".humidity").text("Humidity: " + response.list[0].main.humidity + "%");
             $(".wind").text("Wind speed: " + response.list[0].wind.speed + " km/h");
 
-            // for (var i = 0; index < 5; i++) {
+            for (var i = 0; i < 5; i++) {
 
-            //     // Display the five-day forecast
-            //     //var date = document.getElementById("date");
-            //     var weatherIcon = document.getElementById("weatherIcon");
+                // Display the five-day forecast
+                var forecastHolder = $("<section>").append(city[i])
 
-            //     $(".date").text(date);
-            //     $(".weatherIcon").img(weatherIcon);
-            //     $(".temperature").text(fTemp + "° F");
-            //     $(".humidity").text("Humidity: " + response.list[0].main.humidity + "%");
+                $(forecastHolder).addClass("forecast");
 
-            // }
+                $(".date").text(date).append(forecastHolder);
+                //$(".weatherIcon").img(weatherIcon);
+                $(".temperature").text(fTemp + "° F");
+                $(".humidity").text("Humidity: " + response.list[0].main.humidity + "%");
+
+            }
 
             // Store the latitude and longitude coordinates for the UV index and the index's queryURL
             var uvQueryURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=a388319d9671a29c369dd037334f23bc";
@@ -60,6 +61,14 @@ $(document).ready(function () {
 
                 // Display the UV Index
                 $(".uv-index").text("UV Index: " + uvResponse.current.uvi);
+
+                if (uvResponse.current.uvi < 3) {
+                    $(".uv-index").attr("style", "background-color: green");
+                } else if (uvResponse.current.uvi < 6) {
+                    $(".uv-index").attr("style", "background-color: orange");
+                } else {
+                    $(".uv-index").attr("style", "background-color: red");
+                }
             });
 
             // Add event listener to search button, create a list to show search history, and save to local storage
