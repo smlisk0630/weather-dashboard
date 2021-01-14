@@ -1,6 +1,9 @@
 // Search button
 var searchButton = document.getElementById("#searchBtn");
 
+// Date
+var date = dayjs().format("MM/DD/YY");
+
 // Get city saved in local storage
 $(document).ready(function () {
 
@@ -26,11 +29,24 @@ $(document).ready(function () {
             var lat = response.city.coord.lat;
             var lon = response.city.coord.lon;
 
-            // Display the city, temperature, humidity, and windspeed
-            $(".city").html("<h1>" + response.city.name + " Weather Details</h1>");
+            // Display the date, city, temperature, humidity, and windspeed
+            $(".city").html("<h1>" + response.city.name + " (" + date + ")" + "</h1>");
             $(".temperature").text(fTemp + "° F");
             $(".humidity").text("Humidity: " + response.list[0].main.humidity + "%");
             $(".wind").text("Wind speed: " + response.list[0].wind.speed + " km/h");
+
+            // for (var i = 0; index < 5; i++) {
+
+            //     // Display the five-day forecast
+            //     //var date = document.getElementById("date");
+            //     var weatherIcon = document.getElementById("weatherIcon");
+
+            //     $(".date").text(date);
+            //     $(".weatherIcon").img(weatherIcon);
+            //     $(".temperature").text(fTemp + "° F");
+            //     $(".humidity").text("Humidity: " + response.list[0].main.humidity + "%");
+
+            // }
 
             // Store the latitude and longitude coordinates for the UV index and the index's queryURL
             var uvQueryURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=a388319d9671a29c369dd037334f23bc";
