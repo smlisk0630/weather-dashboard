@@ -9,10 +9,10 @@ $(document).ready(function () {
         // City being searched
         var city = document.getElementById("search-result").value;
 
-        if (localStorage.getItem(city) != null) {
-            cityHolder = localStorage.getItem(city);
-            searchCity();
-        }
+        // if (localStorage.getItem(city) != null) {
+        //     cityHolder = localStorage.getItem(city);
+        //     searchCity();
+        // }
 
         // QueryURL
         var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=a388319d9671a29c369dd037334f23bc";
@@ -60,6 +60,7 @@ $(document).ready(function () {
 
             // Store city, add bootstrap class to li, and add li to ul
             localStorage.setItem("searchHistory",JSON.stringify(cities));
+            var cityHolder = cities;
             $(cityHolder).addClass("list-group-item");
             $("#search-history").append(cityHolder);
             console.log(cityHolder);
