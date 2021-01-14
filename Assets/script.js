@@ -33,7 +33,7 @@ $(document).ready(function () {
 
             // Display the city, temperature, humidity, and windspeed
             $(".city").html("<h1>" + response.city.name + " Weather Details</h1>");
-            $(".temperature").text(fTemp + " F");
+            $(".temperature").text(fTemp + "° F");
             $(".humidity").text("Humidity: " + response.list[0].main.humidity + "%");
             $(".wind").text("Wind speed: " + response.list[0].wind.speed + " km/h");
 
