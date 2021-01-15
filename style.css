@@ -8,7 +8,32 @@
     background-color: #f8f9fa;
 }
 
-.forecast {
+.forecast-1 {
     background-color: blue;
     color: #f8f9fa;
+    border-radius: 4px;
+}
+
+.forecast-2 {
+    background-color: blue;
+    color: #f8f9fa;
+    border-radius: 4px;
+}
+
+.forecast-3 {
+    background-color: blue;
+    color: #f8f9fa;
+    border-radius: 4px;
+}
+
+.forecast-4 {
+    background-color: blue;
+    color: #f8f9fa;
+    border-radius: 4px;
+}
+
+.forecast-5 {
+    background-color: blue;
+    color: #f8f9fa;
+    border-radius: 4px;
 }
