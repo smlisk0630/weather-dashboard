@@ -10,13 +10,14 @@ $(document).ready(function () {
         var city = document.getElementById("search-result").value;
 
         // QueryURL
-        var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=a388319d9671a29c369dd037334f23bc&cnt=5";
+        var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=a388319d9671a29c369dd037334f23bc";
 
         $.ajax({
             url: queryURL,
             method: "GET"
         }).then(function (response) {
-
+            console.log(response);
+            
             // Date
             var date = dayjs().format("MM/DD/YY");
             // Temperature
@@ -36,30 +37,32 @@ $(document).ready(function () {
             $(".humidity").text("Humidity: " + response.list[0].main.humidity + "%");
             $(".wind").text("Wind speed: " + response.list[0].wind.speed + " km/h");
 
-            for (var i = 0; i < response.list.length; i++) {
+            for (var i = 4; i < response.list.length; i+=8) {
+                
                 // 5-Day temps
                 var fiveDayTempResults = response.list[i].main.temp;
-                // Calculate the temperature (converted from Kelvin)
+                // Calculate the temperature (converted from Kelvin into Fahrenheit)
                 var fiveDayFTemp = ((fiveDayTempResults - 273.15) * 1.80 + 32).toFixed(0);
                 // Unix timestamp to be used in 5-day forecast
                 var timeStamp = response.list[i].dt;
                 // Converts timestamp to milliseconds in new Date object and formats date as mm/dd/yy
                 var newDate = dayjs(new Date(timeStamp * 1000)).format("MM/DD/YY");
-
-                // Display the five-day forecast
+                // Weather Icon
+                var weatherIconID = response.list[i].weather[0].icon;
+                // Display search history
                 var forecastHolder = $("<section>").append(city[i])
-
                 $(forecastHolder).addClass("forecast");
 
-                $(".date").text(newDate).append(forecastHolder);
-                //$(".weatherIcon").img(weatherIcon);
-                $(".temperature").text(fiveDayFTemp + "° F");
-                $(".humidity").text("Humidity: " + response.list[i].main.humidity + "%");
+                // Display the five-day forecast
+                $("#date-" +i).text(newDate).append(forecastHolder);
+                //$("#weatherIcon-" +i).img("https://openweathermap.org/img/wn/" + weatherIconID + ".png");
+                $("#temperature-" +i).text(fiveDayFTemp + "° F");
+                $("#humidity-" +i).text("Humidity: " + response.list[i].main.humidity + "%");
             }
 
             // Store the latitude and longitude coordinates for the UV index and the index's queryURL
             var uvQueryURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=a388319d9671a29c369dd037334f23bc";
-            console.log(uvQueryURL);
+            
             // Get UV index
             $.ajax({
                 url: uvQueryURL,
