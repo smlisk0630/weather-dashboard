@@ -1,9 +1,6 @@
 // Search button
 var searchButton = document.getElementById("#searchBtn");
 
-// Date
-var date = dayjs().format("MM/DD/YY");
-
 // Get city saved in local storage
 $(document).ready(function () {
 
@@ -19,12 +16,10 @@ $(document).ready(function () {
             url: queryURL,
             method: "GET"
         }).then(function (response) {
+            // Date
+            var date = dayjs().format("MM/DD/YY");
             // Temperature
             var tempResults = response.list[0].main.temp;
-            // Unix timestamp to be used in 5-day forecast
-            var timeStamp = response.list[0].dt;
-            // Converts timestamp to milliseconds in new Date object
-            var newDate = new Date(timeStamp * 1000);
 
             // Calculate the temperature (converted from Kelvin)
             var fTemp = ((tempResults - 273.15) * 1.80 + 32).toFixed(0);
@@ -32,7 +27,7 @@ $(document).ready(function () {
             var lat = response.city.coord.lat;
             var lon = response.city.coord.lon;
 
-            // Display the date, city, temperature, humidity, and windspeed
+            // Display the current date, city, temperature, humidity, and windspeed
             // $(".fiveDayForecast").html("<h2>" + "5-Day Forecast" + "</h2>");
             $(".city").html("<h1>" + response.city.name + " (" + date + ")" + "</h1>");
             //$(".currentWeatherIcon").attr("src", "https://openweathermap.org/img/wn/" + response.weather.icon + "@2x.png");
@@ -41,17 +36,24 @@ $(document).ready(function () {
             $(".wind").text("Wind speed: " + response.list[0].wind.speed + " km/h");
 
             for (var i = 0; i < response.list.length; i++) {
+                // 5-Day temps
+                var fiveDayTempResults = response.list[i].main.temp;
+                // Calculate the temperature (converted from Kelvin)
+                var fiveDayFTemp = ((fiveDayTempResults - 273.15) * 1.80 + 32).toFixed(0);
+                // Unix timestamp to be used in 5-day forecast
+                var timeStamp = response.list[i].dt;
+                // Converts timestamp to milliseconds in new Date object and formats date as mm/dd/yy
+                var newDate = dayjs(new Date(timeStamp * 1000)).format("MM/DD/YY");
 
                 // Display the five-day forecast
                 var forecastHolder = $("<section>").append(city[i])
 
                 $(forecastHolder).addClass("forecast");
 
-                $(".date").text(date).append(forecastHolder);
+                $(".date").text(newDate).append(forecastHolder);
                 //$(".weatherIcon").img(weatherIcon);
-                $(".temperature").text(fTemp + "° F");
-                $(".humidity").text("Humidity: " + response.list[0].main.humidity + "%");
-
+                $(".temperature").text(fiveDayFTemp + "° F");
+                $(".humidity").text("Humidity: " + response.list[i].main.humidity + "%");
             }
 
             // Store the latitude and longitude coordinates for the UV index and the index's queryURL
@@ -65,14 +67,16 @@ $(document).ready(function () {
                 console.log(uvResponse);
 
                 // Display the UV Index
-                $(".uv-index").text("UV Index: " + uvResponse.current.uvi);
+                var uvValue = uvResponse.current.uvi;
+                var uvIndex = $(".uv-index").text("UV Index: " + uvValue);
+                console.log(uvResponse.current.uvi);
 
-                if (uvResponse.current.uvi < 3) {
-                    $(".uv-index").attr("style", "background-color: green; color: white; font-weight: bold; width: 80px; border-radius: 4px; padding: 13px");
-                } else if (uvResponse.current.uvi < 6) {
-                    $(".uv-index").attr("style", "background-color: orange; color: white; font-weight: bold; width: 80px; border-radius: 4px; padding: 13px");
+                if (uvIndex < 3) {
+                    $(uvIndex).attr("style", "background-color: green; color: white; font-weight: bold; width: 24%; border-radius: 4px; padding: 13px");
+                } else if (uvIndex < 6) {
+                    $(uvIndex).attr("style", "background-color: orange; color: white; font-weight: bold; width: 24%; border-radius: 4px; padding: 13px");
                 } else {
-                    $(".uv-index").attr("style", "background-color: red; color: white; font-weight: bold; width: 80px; border-radius: 4px; padding: 13px");
+                    $(uvIndex).attr("style", "background-color: red; color: white; font-weight: bold; width: 24%; border-radius: 4px; margin-right: 15px; padding: 13px");
                 }
             });
 
@@ -88,7 +92,7 @@ $(document).ready(function () {
 
             // Add for loop and make each list item an index item
             for (var i = 0; i < cities.length; i++) {
-                
+
                 // Store city, add bootstrap class to li, and add li to ul
                 localStorage.setItem("searchHistory", JSON.stringify(cities));
                 var cityHolder = $("<li>").append(cities[i]);
