@@ -37,7 +37,7 @@ $(document).ready(function () {
             $(".humidity").text("Humidity: " + response.list[0].main.humidity + "%");
             $(".wind").text("Wind speed: " + response.list[0].wind.speed + " km/h");
 
-            // for (var i = 0; i < 5; i++) {
+            for (var i = 0; date < 5; i++) {
 
                 // Display the five-day forecast
                 var forecastHolder = $("<section>").append(city[i])
@@ -49,7 +49,7 @@ $(document).ready(function () {
                 $(".temperature").text(fTemp + "° F");
                 $(".humidity").text("Humidity: " + response.list[0].main.humidity + "%");
 
-            // }
+            }
 
             // Store the latitude and longitude coordinates for the UV index and the index's queryURL
             var uvQueryURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=a388319d9671a29c369dd037334f23bc";
@@ -91,6 +91,7 @@ $(document).ready(function () {
                 var cityHolder = $("<li>").append(cities[i]);
                 $(cityHolder).addClass("list-group-item");
                 $("#search-history").append(cityHolder);
+                $("#search-col").append(cityHolder);
                 console.log(cityHolder);
             }
         });
