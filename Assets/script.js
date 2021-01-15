@@ -13,18 +13,21 @@ $(document).ready(function () {
         var city = document.getElementById("search-result").value;
 
         // QueryURL
-        var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=a388319d9671a29c369dd037334f23bc";
+        var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=a388319d9671a29c369dd037334f23bc&cnt=5";
 
         $.ajax({
             url: queryURL,
             method: "GET"
         }).then(function (response) {
-            console.log(response);
+            // Temperature
             var tempResults = response.list[0].main.temp;
+            // Unix timestamp to be used in 5-day forecast
+            var timeStamp = response.list[0].dt;
+            // Converts timestamp to milliseconds in new Date object
+            var newDate = new Date(timeStamp * 1000);
 
-            //calculate the temperature (converted from Kelvin)
+            // Calculate the temperature (converted from Kelvin)
             var fTemp = ((tempResults - 273.15) * 1.80 + 32).toFixed(0);
-            console.log(fTemp);
             // Calculate latitude and longitude for UV index
             var lat = response.city.coord.lat;
             var lon = response.city.coord.lon;
@@ -37,7 +40,7 @@ $(document).ready(function () {
             $(".humidity").text("Humidity: " + response.list[0].main.humidity + "%");
             $(".wind").text("Wind speed: " + response.list[0].wind.speed + " km/h");
 
-            for (var i = 0; date < 5; i++) {
+            for (var i = 0; i < response.list.length; i++) {
 
                 // Display the five-day forecast
                 var forecastHolder = $("<section>").append(city[i])
