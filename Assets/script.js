@@ -16,6 +16,7 @@ $(document).ready(function () {
             url: queryURL,
             method: "GET"
         }).then(function (response) {
+
             // Date
             var date = dayjs().format("MM/DD/YY");
             // Temperature
@@ -64,19 +65,17 @@ $(document).ready(function () {
                 url: uvQueryURL,
                 method: "GET"
             }).then(function (uvResponse) {
-                console.log(uvResponse);
 
                 // Display the UV Index
                 var uvValue = uvResponse.current.uvi;
                 var uvIndex = $(".uv-index").text("UV Index: " + uvValue);
-                console.log(uvResponse.current.uvi);
 
                 if (uvIndex < 3) {
-                    $(uvIndex).attr("style", "background-color: green; color: white; font-weight: bold; width: 24%; border-radius: 4px; padding: 13px");
+                    $(uvIndex).attr("style", "background-color: green; color: white; font-weight: bold; width: 18%; border-radius: 4px; padding: 13px");
                 } else if (uvIndex < 6) {
-                    $(uvIndex).attr("style", "background-color: orange; color: white; font-weight: bold; width: 24%; border-radius: 4px; padding: 13px");
+                    $(uvIndex).attr("style", "background-color: orange; color: white; font-weight: bold; width: 18%; border-radius: 4px; padding: 13px");
                 } else {
-                    $(uvIndex).attr("style", "background-color: red; color: white; font-weight: bold; width: 24%; border-radius: 4px; margin-right: 15px; padding: 13px");
+                    $(uvIndex).attr("style", "background-color: red; color: white; font-weight: bold; width: 18%; border-radius: 4px; margin-right: 15px; padding: 13px");
                 }
             });
 
@@ -99,7 +98,6 @@ $(document).ready(function () {
                 $(cityHolder).addClass("list-group-item");
                 $("#search-history").append(cityHolder);
                 $("#search-col").append(cityHolder);
-                console.log(cityHolder);
             }
         });
     };
