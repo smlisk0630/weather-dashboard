@@ -30,12 +30,14 @@ $(document).ready(function () {
             var lon = response.city.coord.lon;
 
             // Display the date, city, temperature, humidity, and windspeed
+            // $(".fiveDayForecast").html("<h2>" + "5-Day Forecast" + "</h2>");
             $(".city").html("<h1>" + response.city.name + " (" + date + ")" + "</h1>");
+            //$(".currentWeatherIcon").attr("src", "https://openweathermap.org/img/wn/" + response.weather.icon + "@2x.png");
             $(".temperature").text(fTemp + "° F");
             $(".humidity").text("Humidity: " + response.list[0].main.humidity + "%");
             $(".wind").text("Wind speed: " + response.list[0].wind.speed + " km/h");
 
-            for (var i = 0; i < 5; i++) {
+            // for (var i = 0; i < 5; i++) {
 
                 // Display the five-day forecast
                 var forecastHolder = $("<section>").append(city[i])
@@ -47,7 +49,7 @@ $(document).ready(function () {
                 $(".temperature").text(fTemp + "° F");
                 $(".humidity").text("Humidity: " + response.list[0].main.humidity + "%");
 
-            }
+            // }
 
             // Store the latitude and longitude coordinates for the UV index and the index's queryURL
             var uvQueryURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=a388319d9671a29c369dd037334f23bc";
@@ -63,11 +65,11 @@ $(document).ready(function () {
                 $(".uv-index").text("UV Index: " + uvResponse.current.uvi);
 
                 if (uvResponse.current.uvi < 3) {
-                    $(".uv-index").attr("style", "background-color: green");
+                    $(".uv-index").attr("style", "background-color: green; color: white; font-weight: bold; width: 80px; border-radius: 4px; padding: 13px");
                 } else if (uvResponse.current.uvi < 6) {
-                    $(".uv-index").attr("style", "background-color: orange");
+                    $(".uv-index").attr("style", "background-color: orange; color: white; font-weight: bold; width: 80px; border-radius: 4px; padding: 13px");
                 } else {
-                    $(".uv-index").attr("style", "background-color: red");
+                    $(".uv-index").attr("style", "background-color: red; color: white; font-weight: bold; width: 80px; border-radius: 4px; padding: 13px");
                 }
             });
 
