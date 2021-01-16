@@ -100,8 +100,7 @@ $(document).ready(function () {
                 // Store city, add bootstrap class to li, and add li to ul
                 localStorage.setItem("searchHistory", JSON.stringify(cities));
                 var cityHolder = $("<li>").append(cities[i]);
-                $(cityHolder).addClass("list-group-item city-click");
-                $(cityHolder).attr("value", cities[i]);
+                $(cityHolder).addClass("list-group-item");
                 //$("#search-history").append(cityHolder);
                 $("#search-col").append(cityHolder);
             }
@@ -112,9 +111,14 @@ $(document).ready(function () {
         var city = document.getElementById("search-result").value;
         searchCity(city)
     });
-    $("#searchBtn").click(function () {
+    // Uses static element, then child element
+    $("ul#search-col").on("click", "li", function () {
         // City being searched
-        var city = document.getElementById("search-result").value;
+        var city = $(this).text();
         searchCity(city)
     });
+    // Verify localStorage
+    if (!cities.includes(response.city.name)) {
+        cities.push(response.city.name);
+    }
 })
