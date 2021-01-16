@@ -11,3 +11,6 @@ This application can be found at https://smlisk0630.github.io/weather-dashboard/
 
 ## Credits
 - [UNC-Chapel Hill Coding Bootcamp](https://bootcamp.unc.edu/)
+- [OpenWeatherMap API](https://openweathermap.org/)
+- [day.js](day.js.org)
+- [Gage Eide, tutor](https://github.com/gage117)

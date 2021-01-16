@@ -70,12 +70,13 @@ $(document).ready(function () {
             }).then(function (uvResponse) {
 
                 // Display the UV Index
-                var uvValue = uvResponse.current.uvi;
+                var uvValue = parseFloat(uvResponse.current.uvi);
                 var uvIndex = $(".uv-index").text("UV Index: " + uvValue);
 
-                if (uvIndex < 3) {
+                // Color-code the UV Index based on value
+                if (uvValue < 3) {
                     $(uvIndex).attr("style", "background-color: green; color: white; font-weight: bold; width: 18%; border-radius: 4px; padding: 13px");
-                } else if (uvIndex < 6) {
+                } else if (uvValue < 6) {
                     $(uvIndex).attr("style", "background-color: orange; color: white; font-weight: bold; width: 18%; border-radius: 4px; padding: 13px");
                 } else {
                     $(uvIndex).attr("style", "background-color: red; color: white; font-weight: bold; width: 18%; border-radius: 4px; margin-right: 15px; padding: 13px");
