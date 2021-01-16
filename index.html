@@ -28,7 +28,7 @@
         </nav>
         <section class="search-container">
             <section class="row">
-                <section class="col-3" id="search-col">
+                <section class="col-3">
                     <span class="search" id="search">Search for a City:</span>
                     <form class="d-flex">
                         <input class="form-control me-2" id="search-result" type="search" aria-label="Search">
@@ -41,6 +41,7 @@
                             <span class="visually-hidden"></span>
                         </button>
                     </form>
+                    <ul id="search-col"></ul>
                 </section>
                 <section class="col-9">
                     <!-- Current Weather -->
@@ -61,7 +62,7 @@
                             <section class="card m-2 mt-n1 mb-1">
                                 <section class="card-body forecast" id="forecast-4">
                                     <section class="date" id="date-4"></section>
-                                    <section class="weatherIcon" id="weatherIcon-4"></section>
+                                    <img class="weatherIcon" id="weatherIcon-4">
                                     <section class="temperature" id="temperature-4"></section>
                                     <section class="humidity" id="humidity-4"></section>
                                 </section>
@@ -100,13 +101,6 @@
                             </section>
                         </section>
                     </section>
-                </section>
-            </section>
-        </section>
-        <section class="city-container">
-            <section class="row">
-                <section class="card">
-                    <ul class="list-group list-group-flush" id="search-history"></ul>
                 </section>
             </section>
         </section>

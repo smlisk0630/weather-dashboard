@@ -5,9 +5,9 @@ var searchButton = document.getElementById("#searchBtn");
 $(document).ready(function () {
 
     // Take a city and search the Open Weather API for it
-    function searchCity() {
+    function searchCity(city) {
         // City being searched
-        var city = document.getElementById("search-result").value;
+        //var city = document.getElementById("search-result").value;
 
         // QueryURL
         var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + city + "&appid=a388319d9671a29c369dd037334f23bc";
@@ -32,7 +32,7 @@ $(document).ready(function () {
             // Display the current date, city, temperature, humidity, and windspeed
             // $(".fiveDayForecast").html("<h2>" + "5-Day Forecast" + "</h2>");
             $(".city").html("<h1>" + response.city.name + " (" + date + ")" + "</h1>");
-            $(".currentWeatherIcon").attr("src", "https://openweathermap.org/img/w/" + weatherIconID + ".png");
+            
             $(".temperature").text(fTemp + "° F");
             $(".humidity").text("Humidity: " + response.list[0].main.humidity + "%");
             $(".wind").text("Wind speed: " + response.list[0].wind.speed + " km/h");
@@ -49,13 +49,14 @@ $(document).ready(function () {
                 var newDate = dayjs(new Date(timeStamp * 1000)).format("MM/DD/YY");
                 // Weather Icon
                 var weatherIconID = response.list[i].weather[0].icon;
+                $(".currentWeatherIcon").attr("src", "https://openweathermap.org/img/w/" + weatherIconID + ".png");
                 // Display search history
                 var forecastHolder = $("<section>").append(city[i])
                 $(forecastHolder).addClass("forecast");
 
                 // Display the five-day forecast
                 $("#date-" +i).text(newDate).append(forecastHolder);
-                //$("#weatherIcon-" +i).img("https://openweathermap.org/img/wn/" + weatherIconID + ".png");
+                $("#weatherIcon-" +i).attr("src", "https://openweathermap.org/img/w/" + weatherIconID + ".png");
                 $("#temperature-" +i).text(fiveDayFTemp + "° F");
                 $("#humidity-" +i).text("Humidity: " + response.list[i].main.humidity + "%");
             }
@@ -90,7 +91,8 @@ $(document).ready(function () {
             // Also ensures string gets converted back into array
             var cities = JSON.parse(localStorage.getItem("searchHistory")) || [];
             cities.push(response.city.name);
-            $("#search-history").html(" ");
+            // Clear the contents of the search history
+            $("#search-col").empty();
 
             // Add for loop and make each list item an index item
             for (var i = 0; i < cities.length; i++) {
@@ -98,11 +100,21 @@ $(document).ready(function () {
                 // Store city, add bootstrap class to li, and add li to ul
                 localStorage.setItem("searchHistory", JSON.stringify(cities));
                 var cityHolder = $("<li>").append(cities[i]);
-                $(cityHolder).addClass("list-group-item");
-                $("#search-history").append(cityHolder);
+                $(cityHolder).addClass("list-group-item city-click");
+                $(cityHolder).attr("value", cities[i]);
+                //$("#search-history").append(cityHolder);
                 $("#search-col").append(cityHolder);
             }
         });
     };
-    $("#searchBtn").click(searchCity);
+    $("#searchBtn").click(function () {
+        // City being searched
+        var city = document.getElementById("search-result").value;
+        searchCity(city)
+    });
+    $("#searchBtn").click(function () {
+        // City being searched
+        var city = document.getElementById("search-result").value;
+        searchCity(city)
+    });
 })
