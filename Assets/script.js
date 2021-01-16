@@ -51,9 +51,8 @@ $(document).ready(function () {
                 var weatherIconID = response.list[i].weather[0].icon;
                 $(".currentWeatherIcon").attr("src", "https://openweathermap.org/img/w/" + weatherIconID + ".png");
                 // Display search history
-                var forecastHolder = $("<section>").append(city[i])
+                var forecastHolder = $("<section>");
                 $(forecastHolder).addClass("forecast");
-
                 // Display the five-day forecast
                 $("#date-" +i).text(newDate).append(forecastHolder);
                 $("#weatherIcon-" +i).attr("src", "https://openweathermap.org/img/w/" + weatherIconID + ".png");
