@@ -32,7 +32,7 @@ $(document).ready(function () {
             // Display the current date, city, temperature, humidity, and windspeed
             // $(".fiveDayForecast").html("<h2>" + "5-Day Forecast" + "</h2>");
             $(".city").html("<h1>" + response.city.name + " (" + date + ")" + "</h1>");
-            //$(".currentWeatherIcon").attr("src", "https://openweathermap.org/img/wn/" + response.weather.icon + "@2x.png");
+            $(".currentWeatherIcon").attr("src", "https://openweathermap.org/img/w/" + weatherIconID + ".png");
             $(".temperature").text(fTemp + "° F");
             $(".humidity").text("Humidity: " + response.list[0].main.humidity + "%");
             $(".wind").text("Wind speed: " + response.list[0].wind.speed + " km/h");
